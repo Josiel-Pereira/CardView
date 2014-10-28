@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,6 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.ViewHolder>{
         bitmap.execute(resImage);
 
 
-
         holder.mViewC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +65,6 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.ViewHolder>{
         holder.mViewC.setOnLongClickListener(new View.OnLongClickListener(){
            @Override
            public boolean onLongClick(View v){
-               //itemMoved(position);
                if(holder.mViewC.getCardElevation()==3) {
                    holder.mViewC.setCardElevation(15);
                    Palette.generateAsync(BitmapFactory.decodeResource(mContext.getResources(), resImage), new Palette.PaletteAsyncListener() {
@@ -80,6 +79,13 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.ViewHolder>{
                }
                return true;
            }
+        });
+        holder.mViewC.setOnDragListener(new View.OnDragListener(){
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                itemMoved(position);
+                return true;
+            }
         });
     }
 
